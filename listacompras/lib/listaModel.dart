@@ -1,7 +1,8 @@
+class ItemLista {
+  final String nome;
+  int quantidade;
+  double preco;
+  bool concluido;
 
-class Compra {
-  String nome;
-  bool comprado;
-
-  Compra(this.nome, this.comprado);
+  ItemLista(this.nome, this.quantidade, this.preco, this.concluido);
 }

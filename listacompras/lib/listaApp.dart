@@ -1,19 +1,22 @@
-import 'package:listacompras/ListaControll.dart';
-import 'package:listacompras/ListaView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'listaControll.dart';
+import 'listaView.dart';
 
-class ListaApp extends StatelessWidget {
-  const ListaApp({super.key});
+void main() {
+  runApp(ComprasApp());
+}
 
- 
+class ComprasApp extends StatelessWidget {
+  const ComprasApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // Definindo a tela inicial como a ListaTarefasScreen e utilizando o Provider
-      home: ChangeNotifierProvider(
-        create: (context) => ListaComprasController(),
-        child: ListaTarefasScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => ComprasController(),
+      child: MaterialApp(
+        title: 'Lista de Compras',
+        home: ComprasView(),
       ),
     );
   }

@@ -1,28 +1,33 @@
+// ComprasController.dart
+
 import 'package:flutter/material.dart';
-import 'package:listacompras/ListaModel.dart';
+import 'listaModel.dart';
 
-class ListaComprasController extends ChangeNotifier {
-  final List<Compra> _compras = [];
+class ComprasController extends ChangeNotifier {
+  final List<ItemLista> _itens = [];
 
-  List<Compra> get compras => _compras;
+  List<ItemLista> get itens => _itens;
 
-  void adicionarCompra(String nome) {
-    _compras.add(Compra(nome, false));
+  void adicionarItem(
+      String nome, int quantidade, double preco) {
+    _itens.add(ItemLista(nome, quantidade, preco, false));
     notifyListeners();
   }
 
-  void marcarComoComprado(int indice) {
-    if (indice >= 0 && indice < _compras.length) {
-      _compras[indice].comprado = true;
-      notifyListeners();
-    }
-  }
-
- void removerCompra(int indice) {
-  if (indice >= 0 && indice < _compras.length) {
-    _compras.removeAt(indice);
+  void marcarItemComoConcluido(int index, bool value) {
+    _itens[index].concluido = value;
     notifyListeners();
   }
-}
 
+  void removerItem(int index) {
+    _itens.removeAt(index);
+    notifyListeners();
+  }
+
+  void editarItem(int index, String newNome, int newQuantidade,
+      double newPreco) {
+    _itens[index] = ItemLista(newNome, newQuantidade, newPreco,
+        _itens[index].concluido);
+    notifyListeners();
+  }
 }

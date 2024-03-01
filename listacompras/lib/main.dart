@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:listacompras/LIstaView.dart';
-import 'package:listacompras/ListaControll.dart';
 import 'package:provider/provider.dart';
+import 'listaView.dart';
+import 'ListaControll.dart';
 
 void main() {
-  runApp(const ListaApp());
+  runApp(MyApp());
 }
 
-class ListaApp extends StatelessWidget {
-  const ListaApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ChangeNotifierProvider(
-        create: (context) => ListaComprasController(),
-        child: ListaComprasScreen(),
+    return ChangeNotifierProvider(
+      create: (context) => ComprasController(),
+      child: MaterialApp(
+        title: 'Lista de Compras',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: ComprasView(),
       ),
     );
   }
