@@ -1,0 +1,27 @@
+[
+    {
+        "nome": "CPU",
+        "valor": 599.90,
+        "categoria": "Informática"
+    },
+    {
+        "nome": "Camiseta Linux",
+        "valor": 29.90,
+        "categoria": "Vestuário"
+    },
+    {
+       "nome":"Mousepad",
+       "valor": 15.90,
+       "categoria": "Informática"   
+    },
+    {
+        "nome": "Teclado",
+        "valor": 199.90,
+        "categoria": "Informática"
+    },
+    {
+        "nome": "Calça Jeans",
+        "valor": 99.90,
+        "categoria": "Vestuário"
+    }
+]
