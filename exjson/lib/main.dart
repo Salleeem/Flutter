@@ -1,3 +1,4 @@
+import 'package:exjson/View/produtosview.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,8 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Exemplo JSON",
-      theme: ThemeData(primarySwatch: Color.purple),
-      home: HomePage(),
+      theme: ThemeData(primarySwatch: Color.blue),
+      home: const HomePage(),
     );
   }
 }
