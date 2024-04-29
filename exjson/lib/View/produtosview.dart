@@ -1,23 +1,28 @@
-
-
+import 'package:exjson/View/produtodetalhes.dart';
+import 'package:flutter/material.dart';
 import 'package:exjson/Controll/produtoscontroll.dart';
 import 'package:exjson/Model/produtosmodel.dart';
-import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  ProdutoControll _controll = ProdutoControll();
+  late Future<List<Produto>> _produtosFuture;
+  final ProdutoControll _controll = ProdutoControll();
 
   @override
   void initState() {
-    _controll.loadProdutos();
+    _produtosFuture = _loadProdutos();
     super.initState();
+  }
+
+  Future<List<Produto>> _loadProdutos() async {
+    await _controll.loadProdutos();
+    return _controll.produtos;
   }
 
   @override
@@ -29,27 +34,49 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-              child: FutureBuilder<List<Produto>>(
-                  future: _controll.loadProdutos(),
-                  builder: (context, snapshot) {
-                    if (_controll.produtos.isNotEmpty) {
-                      return ListView.builder(
-                        itemCount: _controll.produtos.length,
-                        itemBuilder: (context, index) {
-                          final produto = _controll.produtos[index];
-                          return ListTile(
-                            title: Text(produto.nome),
-                            subtitle: Text(
-                                'Preço: ${produto.valor.toStringAsFixed(2)} - Categoria: ${produto.categoria}'),
+            child: FutureBuilder<List<Produto>>(
+              future: _produtosFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Erro: ${snapshot.error}'),
+                  );
+                } else if (snapshot.hasData) {
+                  List<Produto> produtos = snapshot.data!;
+                  return ListView.builder(
+                    itemCount: produtos.length,
+                    itemBuilder: (context, index) {
+                      final produto = produtos[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductDetailsPage(produto: produto),
+                            ),
                           );
                         },
+                        child: ListTile(
+                          title: Text(produto.nome),
+                          subtitle: Text(
+                            'Preço: ${produto.valor.toStringAsFixed(2)} - Categoria: ${produto.categoria}',
+                          ),
+                        ),
                       );
-                    }else{
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  })),
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: Text('Nenhum produto encontrado.'),
+                  );
+                }
+              },
+            ),
+          ),
         ],
       ),
     );
