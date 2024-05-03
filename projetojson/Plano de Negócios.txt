@@ -1,0 +1,27 @@
+*Página Inicial
+   -Botão para ir ao cadastro de Filmes.
+   -Botão para ir a Listagem do Catálogo.
+
+*Página de Cadastro
+    -Cadastro demanda as informaçôes do Model.
+    -Botão para Confirmar.
+
+*Página do Catálogo
+    -Lista com todos os Filmes.
+    -
+
+*Model
+    -Nome do Filme(String).
+    -Gênero(String).
+    -Sinopse(String).
+    -Ano de Lançamento(Int).
+    -Duração(Int em Min).
+    -Classificação de Idade(Int).
+    -Elenco(Vetor de String).
+    -Imagens(String).
+
+*Controll
+    -Adicionar Cadastro.
+    -Read Lista de Filmes.
+
+
