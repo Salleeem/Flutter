@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projetojson/view/cadastrofilmes.dart';
 import 'package:projetojson/view/homeview.dart';
 import 'package:projetojson/view/listafilmes.dart';
+
 void main() {
   runApp(const MyApp());
 }
