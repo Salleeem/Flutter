@@ -1,11 +1,11 @@
 class CityDb {
   //atributos
-  final int id;
+  int? id;
   final String cityName;
-  final bool favoritesCities;
+  final int favoritesCities;
 
   CityDb(
-      {required this.id,
+      {this.id,
       required this.cityName,
       required this.favoritesCities});
   

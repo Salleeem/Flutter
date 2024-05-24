@@ -11,6 +11,7 @@ class CityDetailsScreen extends StatefulWidget {
 
 class _CityDetailsScreenState extends State<CityDetailsScreen> {
   final WeatherController _controller = WeatherController();
+  bool isFavorited = false;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,11 @@ class _CityDetailsScreenState extends State<CityDetailsScreen> {
                         Text(_controller.listWeather.last.city),
                         //favorite icon
                         IconButton(
-                          icon: const Icon(Icons.favorite_border),
+                          icon: isFavorited ? Icon(Icons.favorite):Icon(Icons.favorite_border_outlined),
                           onPressed: (){
+                            setState(() {
+                              isFavorited = !isFavorited;
+                            });
                             //criar a função para favoritar
                           },
                         )

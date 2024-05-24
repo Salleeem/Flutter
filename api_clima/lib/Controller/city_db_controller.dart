@@ -24,6 +24,22 @@ class CityDbController {
     }
   }
   //create
-  Future<void> create(CityDb db) => _service.insertCity(db);
-
+  Future<void> create(CityDb db) async {
+    try {
+      await _service.insertCity(db);
+      print("inserted");
+    } catch (e) {
+      print(e);
+    }
+  }
+  //getCity
+  Future<CityDb> getCity(String cityName) async {
+    try {
+      Map<String,dynamic> map = await _service.getCity(cityName);
+      return CityDb.fromMap(map);
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

@@ -9,8 +9,8 @@ class CityDbService {
   static const String CREATE_CONTACTS_TABLE_SCRIPT = // Script SQL para criar a tabela
       """CREATE TABLE cities(
           id SERIAL,
-          cityname TEXT,
-          favoritescities BOOLEAN)""";
+          cityname TEXT UNIQUE,
+          favoritescities INTEGER)""";
 
   //getDatabase
   Future<Database> _getDatabase() async{
@@ -47,13 +47,22 @@ class CityDbService {
         whereArgs: [city.cityName]);
     db.close();
   }
-
- Future<void> deleteCity(CityDb city) async{
+  //deleteCity
+  Future<void> deleteCity(CityDb city) async{
     Database db = await _getDatabase();
     await db.delete(
         TABLE_NOME, 
         where: 'cityname =?', 
         whereArgs: [city.cityName]);
     db.close();
+  }
+  //getCity
+  Future<List<Map<String,dynamic>>> getCity(String cityName) async{
+    Database db = await _getDatabase();
+    List<Map<String, dynamic>> result = await db.query(TABLE_NOME, 
+        where: 'cityname =?', 
+        whereArgs: [cityName]);
+    db.close();
+    return result;
   }
 }

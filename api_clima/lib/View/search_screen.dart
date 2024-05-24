@@ -3,80 +3,74 @@ import 'package:projeto_api_clima_localizacao/Controller/city_db_controller.dart
 import 'package:projeto_api_clima_localizacao/Controller/weather_controller.dart';
 import 'package:projeto_api_clima_localizacao/Model/city_db_model.dart';
 
-import 'citydetail_screen.dart';
-
-class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+class CityDetailsScreen extends StatefulWidget {
+  final String city;
+  const CityDetailsScreen({super.key, required this.city});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<CityDetailsScreen> createState() => _CityDetailsScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
-  TextEditingController _cityController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+class _CityDetailsScreenState extends State<CityDetailsScreen> {
   final WeatherController _controller = WeatherController();
-  final CityDbController _cityDbController = CityDbController();
+  bool isFavorited = false;
+  final CityDbController _dbController = CityDbController();
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  Future<void> FavoriteState(String city) async{
+    CityDb cityDb = await _dbController.getCity(city);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Search City"),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-              child: Form(
-                  key: _formKey,
-                  child: Column(children: [
-                    TextFormField(
-                      controller: _cityController,
-                      decoration: const InputDecoration(
-                        labelText: 'Enter City',
-                      ),
-                      validator: (value) {
-                        if (value!.trim().isEmpty) {
-                          return 'Please enter city';
-                        }
-                        return null;
-                      },
+      appBar: AppBar(
+        title: Text(widget.city),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(12),
+        child:Center(
+          child: FutureBuilder(
+            future: _controller.getFromWeatherService(widget.city), 
+            builder: (context,snapshot){
+              if(_controller.listWeather.isEmpty){
+                return CircularProgressIndicator();
+              }else{
+                return Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(_controller.listWeather.last.city),
+                        //favorite icon
+                        IconButton(
+                          icon: isFavorited ? Icon(Icons.favorite):Icon(Icons.favorite_border_outlined),
+                          onPressed: (){
+                            setState(() {
+                              isFavorited = !isFavorited;
+                            });
+                            //criar a função para favoritar
+                          },
+                        )
+                      ],
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _findCity(_cityController.text);
-                        }
-                      },
-                      child: const Text('Search'),
-                    )
-                  ]))),
-        ));
-  }
-
-  Future<void> _findCity(String city) async {
-    if (await _controller.findCity(city)) {
-      CityDb db = CityDb(cityName: city, favoritesCities: false);
-      _cityDbController.create(db);//obj da classe CityDb
-      //Mensagem snackbar
-      ScaffoldMessenger.of(context)
-         .showSnackBar(const SnackBar(
-          content: Text('City found'),
-          duration:Duration(seconds: 1)));
-      //Chamando a tela CityDetailsScreen
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => CityDetailsScreen(city: city)));
-    }else{
-      _cityController.clear();
-      //Mensagem snackbar
-      ScaffoldMessenger.of(context)
-         .showSnackBar(const SnackBar(
-          content: Text('City not found'),
-          duration:Duration(seconds: 2)));
-          setState(() {
-          });
-    }
+                    const SizedBox(height: 12,),
+                    Text(_controller.listWeather.last.description),
+                    const SizedBox(height: 12,),
+                    Text((_controller.listWeather.last.temp-273).toStringAsFixed(2)),
+                    const SizedBox(height: 12,),
+                  ],
+                );
+              }
+            }),
+        )),
+      
+    );
   }
 }
