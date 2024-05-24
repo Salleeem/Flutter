@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_api_clima_localizacao/Controller/city_db_controller.dart';
 import 'package:projeto_api_clima_localizacao/Controller/weather_controller.dart';
+import 'package:projeto_api_clima_localizacao/Model/city_db_model.dart';
 
 import 'citydetail_screen.dart';
 
@@ -14,6 +16,7 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _cityController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final WeatherController _controller = WeatherController();
+  final CityDbController _cityDbController = CityDbController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +56,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future<void> _findCity(String city) async {
     if (await _controller.findCity(city)) {
+      CityDb db = CityDb(cityName: city, favoritesCities: false);
+      _cityDbController.create(db);//obj da classe CityDb
       //Mensagem snackbar
       ScaffoldMessenger.of(context)
          .showSnackBar(const SnackBar(
