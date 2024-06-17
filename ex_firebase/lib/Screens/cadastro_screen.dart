@@ -53,7 +53,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
           IconButton(
             icon: const Icon(Icons.search, color: Color.fromARGB(255, 0, 0, 0)),
             onPressed: () {
-              // Add your search functionality here
+
             },
           ),
         ],
@@ -74,7 +74,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Insira um email';
+                    return 'Coloque um email';
                   }
                   return null;
                 },
@@ -88,7 +88,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Insira uma senha';
+                    return 'Coloque uma senha';
                   }
                   return null;
                 },
@@ -102,7 +102,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Insira a senha correta';
+                    return 'Senha incorreta';
                   }
                   return null;
                 },
