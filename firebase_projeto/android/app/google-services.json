@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "781556055969",
+    "project_id": "testefirebasetardemateus",
+    "storage_bucket": "testefirebasetardemateus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781556055969:android:2a83a1711dfb4d0e4655e0",
+        "android_client_info": {
+          "package_name": "build.gradle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvK_eJmwQq3DTPf5epiX5dpyufGHV_tZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781556055969:android:cf90f279b184c1444655e0",
+        "android_client_info": {
+          "package_name": "com.example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvK_eJmwQq3DTPf5epiX5dpyufGHV_tZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

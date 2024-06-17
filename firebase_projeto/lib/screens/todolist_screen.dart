@@ -1,5 +1,5 @@
-import 'package:exemplo_firebase_b/controllers/todolist_controller.dart';
-import 'package:exemplo_firebase_b/model/todolist.dart';
+import 'package:firebase_projeto/controller/todolist_controller.dart';
+import 'package:firebase_projeto/model/todolist.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';

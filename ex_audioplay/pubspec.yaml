@@ -7,9 +7,12 @@ environment:
   sdk: '>=3.4.3 <4.0.0'
 
 dependencies:
-  audioplayers: ^6.0.0
   flutter:
     sdk: flutter
+  audioplayers: ^6.0.0
+  firebase_core: ^2.18.0  # Adiciona firebase_core para inicialização do Firebase
+  cloud_firestore: 4.17.5  # Adiciona cloud_firestore para Firestore
+  connectivity: ^3.0.6
 
 dev_dependencies:
   flutter_test:
